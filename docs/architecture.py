@@ -37,7 +37,7 @@ def arrow(p1, p2, color=INK, ls="-", text=None, toff=(0, 1.2), rad=0.0, lw=1.8):
 
 # ---------------- Title ----------------
 label(80, 99, "MN521 Part C – AWS Infrastructure as Code (Terraform)", 15, "bold", ha="center")
-label(80, 95.6, "Region ap-southeast-2 (Sydney) · VPC 10.50.0.0/16 · 2 AZs · Bastion-host access pattern",
+label(80, 95.6, "Region us-east-1 (N. Virginia) · VPC 10.50.0.0/16 · 2 AZs · Bastion-host access pattern",
       10, ha="center", color="#555")
 
 # ---------------- Left: IaC workflow ----------------
@@ -58,7 +58,7 @@ arrow((30.9, 17.5), (37.5, 17.5), "#FF9900", text="API", toff=(0, 0.2))
 box(35, 3, 124, 89, INK, "#FFFFFF", lw=2)
 label(37, 90.8, "AWS Cloud", 11, "bold")
 box(38, 5, 118, 81, "#147EBA", "#FFFFFF", ls="--", lw=1.4)
-label(40, 84.8, "Region: ap-southeast-2 (Sydney)", 10, "bold", color="#147EBA")
+label(40, 84.8, "Region: us-east-1 (N. Virginia) – AWS Academy sandbox", 10, "bold", color="#147EBA")
 
 # VPC
 box(41, 7, 112, 70, "#8C4FFF", "#FBF9FF", lw=2)
@@ -71,7 +71,7 @@ node(122, 72, 24, 9, "Internet Gateway", "igw → 0.0.0.0/0", "#8C4FFF", "#EFE6F
 node(131, 86.5, 26, 8, "Administrator", "admin_cidr /32 · SSH key", "#555", "#FFFFFF")
 
 # AZ columns
-for i, (x, az) in enumerate([(44, "ap-southeast-2a"), (99, "ap-southeast-2b")]):
+for i, (x, az) in enumerate([(44, "us-east-1a"), (99, "us-east-1b")]):
     box(x, 9, 51, 61, "#147EBA", "none", ls=(0, (4, 3)), lw=1.2)
     label(x + 25.5, 69, f"Availability Zone {az}", 9.5, "bold", color="#147EBA", ha="center")
 
@@ -102,7 +102,7 @@ label(82, 50.5, "optional\nenable_nat_gateway", 7.8, ha="center", color="#8C4FFF
 # Private EC2
 box(47.5, 13, 28, 15.5, "#DD344C", "none", ls=(0, (3, 2)), lw=1.3, r=0.6)
 label(48.8, 28.1, "private-sg", 7.3, color="#DD344C")
-node(48.5, 14, 26, 11, "Linux server app01", "EC2 t3.micro · AL2023\nno public IP · encrypted gp3", "#FF9900", "#FFF6E8")
+node(48.5, 14, 26, 11, "Linux server app01", "EC2 t3.micro · AL2023\nno public IP · encrypted gp2", "#FF9900", "#FFF6E8")
 
 # Route tables
 node(77, 19, 15.5, 11, "Private RT", "local only\n(+0.0.0.0/0→NAT)", "#147EBA", "#FFFFFF")

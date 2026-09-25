@@ -1,6 +1,6 @@
 # Copy to terraform.tfvars and edit. terraform.tfvars is git-ignored.
 
-aws_region   = "ap-southeast-2"
+aws_region   = "us-east-1"
 project_name = "mn521-enterprise"
 environment  = "dev"
 

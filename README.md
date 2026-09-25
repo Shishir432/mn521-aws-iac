@@ -20,7 +20,7 @@ Terraform project that provisions the cloud segment of the enterprise hybrid net
 | SSH key pair | `tls_private_key.ssh` (ED25519) + `aws_key_pair.this` + local `.pem` (0400) | compute |
 | *(optional)* NAT Gateway | `aws_nat_gateway.this` when `enable_nat_gateway = true` | network |
 
-Security hardening: IMDSv2 enforced, encrypted gp3 root volumes, SSH password and
+Security hardening: IMDSv2 enforced, encrypted gp2 root volumes, SSH password and
 root login disabled via `user_data`, SSH never open to `0.0.0.0/0` (variable validation
 rejects it), private tier egress limited to the VPC.
 
@@ -47,7 +47,7 @@ rejects it), private tier egress limited to the VPC.
 
 * Terraform ≥ 1.6, AWS CLI v2, Git
 * An AWS IAM user (not root) with access keys configured: `aws configure`
-  (region `ap-southeast-2`)
+  (region `us-east-1`; with AWS Academy, paste the sandbox credentials into `~/.aws/credentials`)
 
 ## Usage
 

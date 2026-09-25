@@ -1,7 +1,7 @@
 variable "aws_region" {
-  description = "AWS region to deploy into (Sydney by default)."
+  description = "AWS region to deploy into (us-east-1: the region permitted by the AWS Academy sandbox)."
   type        = string
-  default     = "ap-southeast-2"
+  default     = "us-east-1"
 }
 
 variable "project_name" {
