@@ -76,9 +76,9 @@ resource "aws_instance" "bastion" {
   }
 
   root_block_device {
-    volume_type           = "gp3"
+    volume_type           = "gp2"
     volume_size           = 8
-    encrypted             = true
+    encrypted             = var.encrypt_root_volume
     delete_on_termination = true
   }
 
@@ -107,9 +107,9 @@ resource "aws_instance" "private" {
   }
 
   root_block_device {
-    volume_type           = "gp3"
+    volume_type           = "gp2"
     volume_size           = 8
-    encrypted             = true
+    encrypted             = var.encrypt_root_volume
     delete_on_termination = true
   }
 

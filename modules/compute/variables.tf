@@ -32,3 +32,9 @@ variable "key_output_dir" {
   description = "Local directory where the generated private key is saved."
   type        = string
 }
+
+variable "encrypt_root_volume" {
+  description = "Encrypt the EBS root volumes with the AWS-managed KMS key."
+  type        = bool
+  default     = true
+}

@@ -80,3 +80,9 @@ variable "enable_nat_gateway" {
   type        = bool
   default     = false
 }
+
+variable "encrypt_root_volume" {
+  description = "Encrypt EC2 root volumes (set false only if the account's KMS permissions block it, e.g. some lab sandboxes)."
+  type        = bool
+  default     = true
+}

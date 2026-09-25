@@ -36,4 +36,6 @@ module "compute" {
   bastion_sg_id     = module.security.bastion_sg_id
   private_sg_id     = module.security.private_sg_id
   key_output_dir    = "${path.root}/keys"
+
+  encrypt_root_volume = var.encrypt_root_volume
 }
