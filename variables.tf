@@ -74,3 +74,9 @@ variable "instance_type" {
   type        = string
   default     = "t3.micro"
 }
+
+variable "enable_nat_gateway" {
+  description = "Create a NAT Gateway so private instances can reach the internet for updates. Off by default because NAT Gateways are not Free Tier."
+  type        = bool
+  default     = false
+}

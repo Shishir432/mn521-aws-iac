@@ -17,3 +17,9 @@ variable "admin_cidr" {
   description = "Administrator source CIDR allowed to SSH to the bastion."
   type        = string
 }
+
+variable "allow_private_internet_egress" {
+  description = "Allow the private tier to send traffic to the internet (only useful with a NAT Gateway)."
+  type        = bool
+  default     = false
+}

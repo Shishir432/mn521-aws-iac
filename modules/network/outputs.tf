@@ -37,3 +37,8 @@ output "availability_zones" {
   description = "Availability Zones used by the subnets."
   value       = local.azs
 }
+
+output "nat_gateway_id" {
+  description = "ID of the NAT Gateway (null when disabled)."
+  value       = var.enable_nat_gateway ? aws_nat_gateway.this[0].id : null
+}

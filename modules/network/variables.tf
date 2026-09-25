@@ -17,3 +17,9 @@ variable "private_subnet_cidrs" {
   description = "Two CIDR blocks for the private subnets."
   type        = list(string)
 }
+
+variable "enable_nat_gateway" {
+  description = "Create a NAT Gateway and default route for the private subnets."
+  type        = bool
+  default     = false
+}

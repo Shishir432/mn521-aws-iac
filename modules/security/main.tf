@@ -58,9 +58,11 @@ resource "aws_vpc_security_group_ingress_rule" "private_icmp_from_bastion" {
   referenced_security_group_id = aws_security_group.bastion.id
 }
 
-resource "aws_vpc_security_group_egress_rule" "private_vpc_only" {
+# Egress is limited to the VPC unless a NAT Gateway exists, in which case
+# outbound internet (for OS updates) is allowed.
+resource "aws_vpc_security_group_egress_rule" "private_egress" {
   security_group_id = aws_security_group.private.id
-  description       = "Outbound restricted to the VPC"
+  description       = var.allow_private_internet_egress ? "Outbound via NAT Gateway" : "Outbound restricted to the VPC"
   ip_protocol       = "-1"
-  cidr_ipv4         = var.vpc_cidr
+  cidr_ipv4         = var.allow_private_internet_egress ? "0.0.0.0/0" : var.vpc_cidr
 }

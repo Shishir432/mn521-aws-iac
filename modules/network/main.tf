@@ -89,12 +89,41 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public.id
 }
 
-# Private route table: only the implicit local VPC route, so instances in
-# the private subnets are unreachable from, and cannot reach, the internet.
+# Private route table: only the implicit local VPC route by default, so
+# instances in the private subnets are unreachable from the internet.
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.this.id
 
   tags = { Name = "${var.name_prefix}-private-rt" }
+}
+
+# Optional NAT Gateway (disabled by default to stay within Free Tier).
+# When enabled, private instances get outbound-only internet access for
+# patching while remaining unreachable from the internet.
+resource "aws_eip" "nat" {
+  count  = var.enable_nat_gateway ? 1 : 0
+  domain = "vpc"
+
+  tags = { Name = "${var.name_prefix}-nat-eip" }
+}
+
+resource "aws_nat_gateway" "this" {
+  count = var.enable_nat_gateway ? 1 : 0
+
+  allocation_id = aws_eip.nat[0].id
+  subnet_id     = aws_subnet.public["a"].id
+
+  tags = { Name = "${var.name_prefix}-nat" }
+
+  depends_on = [aws_internet_gateway.this]
+}
+
+resource "aws_route" "private_default_via_nat" {
+  count = var.enable_nat_gateway ? 1 : 0
+
+  route_table_id         = aws_route_table.private.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.this[0].id
 }
 
 resource "aws_route_table_association" "private" {

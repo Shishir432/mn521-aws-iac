@@ -23,6 +23,11 @@ output "internet_gateway_id" {
   value       = module.network.internet_gateway_id
 }
 
+output "nat_gateway_id" {
+  description = "NAT Gateway ID (null when enable_nat_gateway = false)."
+  value       = module.network.nat_gateway_id
+}
+
 output "security_group_ids" {
   description = "Security group IDs."
   value = {
