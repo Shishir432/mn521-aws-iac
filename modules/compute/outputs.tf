@@ -10,7 +10,7 @@ output "private_key_path" {
 
 output "ami_id" {
   description = "Amazon Linux 2023 AMI used for both instances."
-  value       = data.aws_ssm_parameter.al2023.insecure_value
+  value       = data.aws_ami.al2023.id
 }
 
 output "bastion_instance_id" {

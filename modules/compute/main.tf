@@ -3,10 +3,27 @@
 # private Linux server (private subnet).
 # ---------------------------------------------------------------------------
 
-# Latest Amazon Linux 2023 AMI, resolved from AWS's public SSM parameter so
-# the code never hard-codes a region-specific AMI ID.
-data "aws_ssm_parameter" "al2023" {
-  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
+# Latest Amazon Linux 2023 AMI published by Amazon, looked up at plan time so
+# the code never hard-codes a region-specific AMI ID. Uses ec2:DescribeImages
+# only, which works in restricted accounts such as AWS Academy labs.
+data "aws_ami" "al2023" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 # ------------------------------ Key pair -----------------------------------
@@ -34,7 +51,7 @@ resource "local_sensitive_file" "private_key" {
 
 locals {
   common_instance_settings = {
-    ami           = data.aws_ssm_parameter.al2023.insecure_value
+    ami           = data.aws_ami.al2023.id
     instance_type = var.instance_type
     key_name      = aws_key_pair.this.key_name
   }
